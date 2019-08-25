@@ -14,7 +14,7 @@ Retrieves every possible combination between several arrays
 - requires almost no memory
 
 This module is perfect when you combine hundreds of arrays or when those arrays
-produce millions of combinations. Otherwise, you should use
+produce millions of combinations. Otherwise you should use
 [`fast-cartesian`](https://github.com/ehmicky/fast-cartesian) instead as it is
 much faster.
 
@@ -23,9 +23,9 @@ much faster.
 <!-- eslint-disable fp/no-loops -->
 
 ```js
-const cartesian = require('big-cartesian')
+const bigCartesian = require('big-cartesian')
 
-for (const values of cartesian([['red', 'blue'], ['circle', 'square']])) {
+for (const values of bigCartesian([['red', 'blue'], ['circle', 'square']])) {
   console.log(values)
 }
 // [ 'red', 'circle' ]
@@ -47,23 +47,12 @@ You can try this library:
 npm install big-cartesian
 ```
 
-# Usage
-
-<!-- eslint-disable fp/no-loops, no-empty -->
-
-```js
-const cartesian = require('big-cartesian')
-
-for (const combination of iterate([['red', 'blue', ['circle', 'square']]])) {
-}
-```
-
 # API
 
 ## bigCartesian(inputs)
 
 `inputs`: `Array<Array | Generator>`<br> _Return value_:
-[`Iterable`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
+[`Iterable<Array>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
 
 Iterates over each combination of `inputs`.
 
@@ -82,7 +71,8 @@ const generator = function*() {
 }
 
 // Notice we pass the function itself: `generator` not `generator()`
-for (const combination of iterate([['red', 'blue'], generator])) {
+for (const values of bigCartesian([['red', 'blue'], generator])) {
+  console.log(values)
 }
 ```
 
