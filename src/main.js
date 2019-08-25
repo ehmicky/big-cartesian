@@ -1,6 +1,6 @@
 // Does a cartesian product on several arrays.
 // Returns an iterable.
-// Slower than `array()` but:
+// Slower than `fast-cartesian` and other libraries but:
 //  - requires much less memory
 //  - can handle an infinite number of combinations (`returnValue.length`)
 //  - can handle infinitely large inputs (`inputs[index].length`)
@@ -9,7 +9,7 @@
 // eslint-disable-next-line import/unambiguous
 const bigCartesian = function*(inputs) {
   if (!Array.isArray(inputs)) {
-    throwValidation()
+    return throwValidation()
   }
 
   if (inputs.length === 0) {
@@ -30,7 +30,7 @@ const getGenerator = function(input) {
   }
 
   if (typeof input !== 'function') {
-    throwValidation()
+    return throwValidation()
   }
 
   return input
@@ -40,7 +40,7 @@ const getIterator = function(generator) {
   const iterator = generator()
 
   if (!isIterator(iterator)) {
-    throwValidation()
+    return throwValidation()
   }
 
   return iterator
