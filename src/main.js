@@ -7,26 +7,23 @@
 //  - can handle 4e9 dimensions (`inputs.length`).
 //    This is the maximum size of an array in JavaScript.
 // eslint-disable-next-line import/unambiguous
-const bigCartesian = function*(inputs) {
-  if (!Array.isArray(inputs)) {
+const bigCartesian = function*(iterables) {
+  if (!Array.isArray(iterables)) {
     return throwValidation()
   }
 
-  if (inputs.length === 0) {
+  if (iterables.length === 0) {
     return
   }
 
-  const generators = inputs.map(getGenerator)
-  const iterators = generators.map(getIterator)
+  const iteratorFuncs = iterables.map(getIteratorFuncs)
 
-  yield* getResults(generators, iterators)
+  yield* getResults(iteratorFuncs)
 }
 
-const getGenerator = function(input) {
-  if (Array.isArray(input)) {
-    return function* getArray() {
-      yield* input
-    }
+const getIteratorFuncs = function(input) {
+  if (typeof input[Symbol.iterator] === 'function') {
+    return input[Symbol.iterator].bind(input)
   }
 
   if (typeof input !== 'function') {
@@ -36,8 +33,24 @@ const getGenerator = function(input) {
   return input
 }
 
-const getIterator = function(generator) {
-  const iterator = generator()
+const getResults = function*(iteratorFuncs) {
+  const iterators = iteratorFuncs.map(getIterator)
+  const results = iterators.map(getInitialValue)
+
+  if (hasEmptyIterators(results)) {
+    return
+  }
+
+  const result = results.map(getValue)
+
+  // eslint-disable-next-line fp/no-loops
+  do {
+    yield result.slice()
+  } while (!getResult(iteratorFuncs, iterators, result))
+}
+
+const getIterator = function(iteratorFunc) {
+  const iterator = iteratorFunc()
 
   if (!isIterator(iterator)) {
     return throwValidation()
@@ -74,26 +87,11 @@ const getValue = function({ value }) {
   return value
 }
 
-const getResults = function*(generators, iterators) {
-  const results = iterators.map(getInitialValue)
-
-  if (hasEmptyIterators(results)) {
-    return
-  }
-
-  const result = results.map(getValue)
-
-  // eslint-disable-next-line fp/no-loops
-  do {
-    yield result.slice()
-  } while (!getResult(generators, iterators, result))
-}
-
 // We use imperative code for performance purpose, which is why those ESLint
 // rules are disabled.
 /* eslint-disable fp/no-let, fp/no-mutation, no-param-reassign, max-depth,
 no-plusplus, fp/no-loops, max-statements, complexity */
-const getResult = function(generators, iterators, result) {
+const getResult = function(iteratorFuncs, iterators, result) {
   let reset = false
   let index = iterators.length - 1
 
@@ -113,7 +111,7 @@ const getResult = function(generators, iterators, result) {
       }
     } else if (done) {
       reset = true
-      iterators[index] = generators[index]()
+      iterators[index] = iteratorFuncs[index]()
     } else {
       break
     }

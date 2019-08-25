@@ -51,7 +51,7 @@ npm install big-cartesian
 
 ## bigCartesian(inputs)
 
-`inputs`: `Array<Array | Generator>`<br> _Return value_:
+`inputs`: `Array<Array | Iterable | Generator>`<br> _Return value_:
 [`Iterable<Array>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
 
 Iterates over each combination of `inputs`.
@@ -61,7 +61,7 @@ Iterates over each combination of `inputs`.
 This works with an infinite number of combinations.
 
 Arrays in JavaScript have a size limit of 4 trillions of elements. You can
-bypass this limit by using a generator function instead.
+bypass this limit by using iterables or generator functions instead.
 
 <!-- eslint-disable fp/no-loops, no-empty -->
 

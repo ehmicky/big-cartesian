@@ -21,3 +21,18 @@ for (const values of bigCartesian([['red', 'blue'], ['circle', 'square']])) {
 // [ 'red', 'square' ]
 // [ 'blue', 'circle' ]
 // [ 'blue', 'square' ]
+
+const generator = function*() {
+  yield 'circle'
+  yield 'square'
+}
+
+// Notice we pass the function itself: `generator` not `generator()`
+// eslint-disable-next-line fp/no-loops
+for (const values of bigCartesian([['red', 'blue'], generator])) {
+  console.log(values)
+}
+// [ 'red', 'circle' ]
+// [ 'red', 'square' ]
+// [ 'blue', 'circle' ]
+// [ 'blue', 'square' ]

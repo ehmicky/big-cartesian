@@ -19,30 +19,19 @@ const ARGS = [
   [[0, 1, 2], [3, 2]],
   [[[0]]],
   [[0, undefined, 1]],
+  [
+    [0, 1],
+    function* generator() {
+      yield* [2, 3]
+    },
+  ],
+  [[0, 1], new Set([2, 3])],
 ]
-
 ARGS.forEach(args => {
   test(`iterate | ${getTitle(args)}`, t => {
     t.snapshot(bigCartesian(args))
   })
-
-  test(`should work with generators | ${getTitle(args)})}`, t => {
-    const generators = getGenerators(args)
-    const generatorsResult = [...bigCartesian(generators)]
-    const arraysResult = [...bigCartesian(args)]
-    t.deepEqual(generatorsResult, arraysResult)
-  })
 })
-
-const getGenerators = function(args) {
-  return args.map(getGenerator)
-}
-
-const getGenerator = function(arg) {
-  return function* getArray() {
-    yield* arg
-  }
-}
 
 const INVALID_ARGS = [
   true,
@@ -66,7 +55,6 @@ const INVALID_ARGS = [
     },
   ],
 ]
-
 INVALID_ARGS.forEach(args => {
   test(`should throw | ${getTitle(args)}`, t => {
     // eslint-disable-next-line max-nested-callbacks
