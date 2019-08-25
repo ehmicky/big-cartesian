@@ -58,7 +58,6 @@
     "gulp": "^4.0.2",
     "gulp-shared-tasks": "^0.30.37",
     "husky": "^3.0.4",
-    "is-ci": "^2.0.0",
     "pretty-format": "^24.9.0"
   },
   "engines": {

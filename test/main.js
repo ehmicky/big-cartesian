@@ -3,14 +3,9 @@ import prettyFormat from 'pretty-format'
 
 import bigCartesian from '../src/main.js'
 
-const METHODS = [
-  {
-    name: 'iterate',
-    cartesian(args) {
-      return [...bigCartesian(args)]
-    },
-  },
-]
+const getTitle = function(args) {
+  return prettyFormat(args, { min: true })
+}
 
 const ARGS = [
   [],
@@ -25,6 +20,29 @@ const ARGS = [
   [[[0]]],
   [[0, undefined, 1]],
 ]
+
+ARGS.forEach(args => {
+  test(`iterate | ${getTitle(args)}`, t => {
+    t.snapshot(bigCartesian(args))
+  })
+
+  test(`should work with generators | ${getTitle(args)})}`, t => {
+    const generators = getGenerators(args)
+    const generatorsResult = [...bigCartesian(generators)]
+    const arraysResult = [...bigCartesian(args)]
+    t.deepEqual(generatorsResult, arraysResult)
+  })
+})
+
+const getGenerators = function(args) {
+  return args.map(getGenerator)
+}
+
+const getGenerator = function(arg) {
+  return function* getArray() {
+    yield* arg
+  }
+}
 
 const INVALID_ARGS = [
   true,
@@ -49,40 +67,31 @@ const INVALID_ARGS = [
   ],
 ]
 
-METHODS.forEach(({ name, cartesian }) => {
-  ARGS.forEach(args => {
-    const title = prettyFormat(args, { min: true })
+INVALID_ARGS.forEach(args => {
+  test(`should throw | ${getTitle(args)}`, t => {
     // eslint-disable-next-line max-nested-callbacks
-    test(`${name} | ${title}`, t => {
-      t.snapshot(cartesian(args))
-    })
+    t.throws(() => [...bigCartesian(args)])
   })
 })
 
-METHODS.forEach(({ name, cartesian }) => {
-  INVALID_ARGS.forEach(args => {
-    const title = prettyFormat(args, { min: true })
-    // eslint-disable-next-line max-nested-callbacks
-    test(`${name} | should throw: ${title}`, t => {
-      t.throws(cartesian.bind(null, args))
-    })
-  })
-})
+// We should do 1e10x1 and 32x2, unfortunately that takes hours to complete
+const COMBINATIONS_ITERATE = [{ length: 1e5, size: 1 }, { length: 21, size: 2 }]
+COMBINATIONS_ITERATE.forEach(({ length, size }) => {
+  test(`iterate | should not throw on high number of combinations | ${length}x${size}`, t => {
+    const args = getBigArray(length, size)
 
-ARGS.forEach(args => {
-  const title = prettyFormat(args, { min: true })
-  test(`iterate | should work with generators | ${title}`, t => {
-    const generators = getGenerators(args)
-    const generatorsResult = [...bigCartesian(generators)]
-    const arraysResult = [...bigCartesian(args)]
-    t.deepEqual(generatorsResult, arraysResult)
-  })
-})
-
-const getGenerators = function(args) {
-  return args.map(arg => {
-    return function* getArray() {
-      yield* arg
+    // eslint-disable-next-line fp/no-loops, no-empty, no-empty-pattern
+    for (const [] of bigCartesian(args)) {
     }
+
+    t.pass()
   })
+})
+
+const getBigArray = function(length, size) {
+  return Array.from({ length }, () => Array.from({ length: size }, getTrue))
+}
+
+const getTrue = function() {
+  return true
 }
