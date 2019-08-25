@@ -9,13 +9,14 @@ Cartesian product for big inputs.
 
 Retrieves every possible combination between several arrays
 ([cartesian product](https://en.wikipedia.org/wiki/Cartesian_product)):
-  - can handle an infinite number of combinations
-  - requires almost no memory
+
+- can handle an infinite number of combinations
+- requires almost no memory
 
 This module is perfect when you combine hundreds of arrays or when those arrays
 produce millions of combinations. Otherwise, you should use
-[`fast-cartesian`](https://github.com/ehmicky/fast-cartesian)
-instead as it is much faster.
+[`fast-cartesian`](https://github.com/ehmicky/fast-cartesian) instead as it is
+much faster.
 
 # Example
 
@@ -53,7 +54,7 @@ npm install big-cartesian
 ```js
 const cartesian = require('big-cartesian')
 
-for (const combination of iterate([['red', 'blue', ['circle','square']]])) {
+for (const combination of iterate([['red', 'blue', ['circle', 'square']]])) {
 }
 ```
 
@@ -87,7 +88,8 @@ for (const combination of iterate([['red', 'blue'], generator])) {
 
 # Benchmarks
 
-See the [following benchmarks](https://github.com/ehmicky/fast-cartesian#benchmarks).
+See the
+[following benchmarks](https://github.com/ehmicky/fast-cartesian#benchmarks).
 
 # Support
 
