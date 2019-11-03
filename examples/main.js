@@ -14,7 +14,10 @@ const bigCartesian = require('big-cartesian')
 
 // Iterate over combinations
 // eslint-disable-next-line fp/no-loops
-for (const values of bigCartesian([['red', 'blue'], ['circle', 'square']])) {
+for (const values of bigCartesian([
+  ['red', 'blue'],
+  ['circle', 'square'],
+])) {
   console.log(values)
 }
 // [ 'red', 'circle' ]

@@ -15,8 +15,14 @@ const ARGS = [
   [[0], [1]],
   [[0, 1]],
   [[0, 1], [2]],
-  [[0, 1], [2, 3]],
-  [[0, 1, 2], [3, 2]],
+  [
+    [0, 1],
+    [2, 3],
+  ],
+  [
+    [0, 1, 2],
+    [3, 2],
+  ],
   [[[0]]],
   [[0, undefined, 1]],
   [
@@ -63,7 +69,10 @@ INVALID_ARGS.forEach(args => {
 })
 
 // We should do 1e10x1 and 32x2, unfortunately that takes hours to complete
-const COMBINATIONS_ITERATE = [{ length: 1e5, size: 1 }, { length: 21, size: 2 }]
+const COMBINATIONS_ITERATE = [
+  { length: 1e5, size: 1 },
+  { length: 21, size: 2 },
+]
 COMBINATIONS_ITERATE.forEach(({ length, size }) => {
   test(`iterate | should not throw on high number of combinations | ${length}x${size}`, t => {
     const args = getBigArray(length, size)

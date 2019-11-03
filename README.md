@@ -25,7 +25,10 @@ much faster.
 ```js
 const bigCartesian = require('big-cartesian')
 
-for (const values of bigCartesian([['red', 'blue'], ['circle', 'square']])) {
+for (const values of bigCartesian([
+  ['red', 'blue'],
+  ['circle', 'square'],
+])) {
   console.log(values)
 }
 // [ 'red', 'circle' ]
