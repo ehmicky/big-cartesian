@@ -54,8 +54,8 @@ npm install big-cartesian
 
 ## bigCartesian(inputs)
 
-`inputs`: `Array<Array | Iterable | Generator>`<br> _Return value_:
-[`Iterable<Array>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
+`inputs`: `Array<Array | Iterable | Generator>`\
+_Return value_: [`Iterable<Array>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
 
 Iterates over each combination of `inputs`.
 
