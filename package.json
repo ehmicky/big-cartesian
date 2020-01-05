@@ -55,7 +55,7 @@
     "@ehmicky/dev-tasks": "^0.31.1",
     "ava": "^2.4.0",
     "gulp": "^4.0.2",
-    "husky": "^3.1.0",
+    "husky": "^4.0.6",
     "pretty-format": "^24.9.0"
   },
   "engines": {
