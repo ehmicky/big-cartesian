@@ -3,7 +3,7 @@ import prettyFormat from 'pretty-format'
 
 import bigCartesian from '../src/main.js'
 
-const getTitle = function(args) {
+const getTitle = function (args) {
   return prettyFormat(args, { min: true })
 }
 
@@ -33,8 +33,8 @@ const ARGS = [
   ],
   [[0, 1], new Set([2, 3])],
 ]
-ARGS.forEach(args => {
-  test(`iterate | ${getTitle(args)}`, t => {
+ARGS.forEach((args) => {
+  test(`iterate | ${getTitle(args)}`, (t) => {
     t.snapshot(bigCartesian(args))
   })
 })
@@ -61,8 +61,8 @@ const INVALID_ARGS = [
     },
   ],
 ]
-INVALID_ARGS.forEach(args => {
-  test(`should throw | ${getTitle(args)}`, t => {
+INVALID_ARGS.forEach((args) => {
+  test(`should throw | ${getTitle(args)}`, (t) => {
     // eslint-disable-next-line max-nested-callbacks
     t.throws(() => [...bigCartesian(args)])
   })
@@ -74,7 +74,7 @@ const COMBINATIONS_ITERATE = [
   { length: 21, size: 2 },
 ]
 COMBINATIONS_ITERATE.forEach(({ length, size }) => {
-  test(`iterate | should not throw on high number of combinations | ${length}x${size}`, t => {
+  test(`iterate | should not throw on high number of combinations | ${length}x${size}`, (t) => {
     const args = getBigArray(length, size)
 
     // eslint-disable-next-line fp/no-loops, no-empty, no-empty-pattern
@@ -85,10 +85,10 @@ COMBINATIONS_ITERATE.forEach(({ length, size }) => {
   })
 })
 
-const getBigArray = function(length, size) {
+const getBigArray = function (length, size) {
   return Array.from({ length }, () => Array.from({ length: size }, getTrue))
 }
 
-const getTrue = function() {
+const getTrue = function () {
   return true
 }

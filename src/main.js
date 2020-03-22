@@ -7,7 +7,7 @@
 //  - can handle 4e9 dimensions (`inputs.length`).
 //    This is the maximum size of an array in JavaScript.
 // eslint-disable-next-line import/unambiguous
-const bigCartesian = function*(iterables) {
+const bigCartesian = function* (iterables) {
   if (!Array.isArray(iterables)) {
     return throwValidation()
   }
@@ -21,7 +21,7 @@ const bigCartesian = function*(iterables) {
   yield* getResults(iteratorFuncs)
 }
 
-const getIteratorFuncs = function(input) {
+const getIteratorFuncs = function (input) {
   if (typeof input[Symbol.iterator] === 'function') {
     return input[Symbol.iterator].bind(input)
   }
@@ -33,7 +33,7 @@ const getIteratorFuncs = function(input) {
   return input
 }
 
-const getResults = function*(iteratorFuncs) {
+const getResults = function* (iteratorFuncs) {
   const iterators = iteratorFuncs.map(getIterator)
   const results = iterators.map(getInitialValue)
 
@@ -49,7 +49,7 @@ const getResults = function*(iteratorFuncs) {
   } while (!getResult(iteratorFuncs, iterators, result))
 }
 
-const getIterator = function(iteratorFunc) {
+const getIterator = function (iteratorFunc) {
   const iterator = iteratorFunc()
 
   if (!isIterator(iterator)) {
@@ -59,11 +59,11 @@ const getIterator = function(iteratorFunc) {
   return iterator
 }
 
-const throwValidation = function() {
+const throwValidation = function () {
   throw new TypeError('Argument must be an array of arrays or generators')
 }
 
-const isIterator = function(value) {
+const isIterator = function (value) {
   return (
     typeof value === 'object' &&
     value !== null &&
@@ -71,19 +71,19 @@ const isIterator = function(value) {
   )
 }
 
-const getInitialValue = function(iterator) {
+const getInitialValue = function (iterator) {
   return iterator.next()
 }
 
-const hasEmptyIterators = function(results) {
+const hasEmptyIterators = function (results) {
   return results.some(isEmptyIterator)
 }
 
-const isEmptyIterator = function({ done }) {
+const isEmptyIterator = function ({ done }) {
   return done
 }
 
-const getValue = function({ value }) {
+const getValue = function ({ value }) {
   return value
 }
 
@@ -91,7 +91,7 @@ const getValue = function({ value }) {
 // rules are disabled.
 /* eslint-disable fp/no-let, fp/no-mutation, no-param-reassign, max-depth,
 no-plusplus, fp/no-loops, max-statements, complexity */
-const getResult = function(iteratorFuncs, iterators, result) {
+const getResult = function (iteratorFuncs, iterators, result) {
   let reset = false
   let index = iterators.length - 1
 

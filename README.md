@@ -69,7 +69,7 @@ bypass this limit by using iterables or generator functions instead.
 <!-- eslint-disable fp/no-loops, no-empty -->
 
 ```js
-const generator = function*() {
+const generator = function* () {
   // This generator can generate an infinite number of elements
 }
 

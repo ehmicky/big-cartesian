@@ -25,7 +25,7 @@ for (const values of bigCartesian([
 // [ 'blue', 'circle' ]
 // [ 'blue', 'square' ]
 
-const generator = function*() {
+const generator = function* () {
   yield 'circle'
   yield 'square'
 }
