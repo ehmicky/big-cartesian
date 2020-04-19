@@ -42,6 +42,7 @@ ARGS.forEach((args) => {
 const INVALID_ARGS = [
   true,
   [undefined],
+  // eslint-disable-next-line unicorn/no-null
   [null],
   [[], true],
   [() => true],
@@ -52,6 +53,7 @@ const INVALID_ARGS = [
   ],
   [
     function getNull() {
+      // eslint-disable-next-line unicorn/no-null
       return null
     },
   ],
