@@ -79,8 +79,9 @@ COMBINATIONS_ITERATE.forEach(({ length, size }) => {
   test(`iterate | should not throw on high number of combinations | ${length}x${size}`, (t) => {
     const args = getBigArray(length, size)
 
-    // eslint-disable-next-line fp/no-loops, no-empty, no-empty-pattern
-    for (const [] of bigCartesian(args)) {}
+    // eslint-disable-next-line fp/no-loops, no-empty, no-empty-pattern, unicorn/empty-brace-spaces
+    for (const [] of bigCartesian(args)) {
+    }
 
     t.pass()
   })
