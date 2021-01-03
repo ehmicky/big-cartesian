@@ -80,8 +80,7 @@ COMBINATIONS_ITERATE.forEach(({ length, size }) => {
     const args = getBigArray(length, size)
 
     // eslint-disable-next-line fp/no-loops, no-empty, no-empty-pattern
-    for (const [] of bigCartesian(args)) {
-    }
+    for (const [] of bigCartesian(args)) {}
 
     t.pass()
   })
