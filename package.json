@@ -51,7 +51,7 @@
     "test": "test"
   },
   "devDependencies": {
-    "@ehmicky/dev-tasks": "^0.31.79",
+    "@ehmicky/dev-tasks": "^0.31.81",
     "husky": "^4.3.8",
     "pretty-format": "^26.6.2"
   },
