@@ -45,7 +45,7 @@ const getResults = function* (iteratorFuncs) {
 
   // eslint-disable-next-line fp/no-loops
   do {
-    yield result.slice()
+    yield [...result]
   } while (!getResult(iteratorFuncs, iterators, result))
 }
 
