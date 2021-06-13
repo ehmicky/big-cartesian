@@ -19,10 +19,10 @@ much faster.
 
 # Example
 
-<!-- eslint-disable fp/no-loops -->
+<!-- eslint-disable fp/no-loops, node/no-missing-import -->
 
 ```js
-const bigCartesian = require('big-cartesian')
+import bigCartesian from 'big-cartesian'
 
 for (const values of bigCartesian([
   ['red', 'blue'],
@@ -65,7 +65,7 @@ This works with an infinite number of combinations.
 Arrays in JavaScript have a size limit of 4 trillions of elements. You can
 bypass this limit by using iterables or generator functions instead.
 
-<!-- eslint-disable fp/no-loops, no-empty -->
+<!-- eslint-disable fp/no-loops, no-empty, import/unambiguous -->
 
 ```js
 const generator = function* () {
