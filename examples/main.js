@@ -5,9 +5,8 @@
 // An online demo is also available at:
 //   https://repl.it/@ehmicky/big-cartesian
 
-'use strict'
-
-const bigCartesian = require('big-cartesian')
+// eslint-disable-next-line node/no-missing-import
+import bigCartesian from 'big-cartesian'
 
 // Iterate over combinations
 // eslint-disable-next-line fp/no-loops
