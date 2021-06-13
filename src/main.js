@@ -6,8 +6,8 @@
 //  - can handle infinitely large inputs (`inputs[index].length`)
 //  - can handle 4e9 dimensions (`inputs.length`).
 //    This is the maximum size of an array in JavaScript.
-// eslint-disable-next-line import/unambiguous
-const bigCartesian = function* (iterables) {
+// eslint-disable-next-line import/no-default-export
+export default function* bigCartesian(iterables) {
   if (!Array.isArray(iterables)) {
     return throwValidation()
   }
@@ -119,7 +119,3 @@ const getResult = function (iteratorFuncs, iterators, result) {
 }
 /* eslint-enable fp/no-let, fp/no-mutation, no-param-reassign, max-depth,
 no-plusplus, fp/no-loops, max-statements, complexity */
-
-// We do not use `export default` because Babel transpiles it in a way that
-// requires CommonJS users to `require(...).default` instead of `require(...)`.
-module.exports = bigCartesian
