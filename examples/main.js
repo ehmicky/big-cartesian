@@ -7,9 +7,6 @@
 
 'use strict'
 
-// Ignore the following line: this is only needed for internal purposes.
-require('./utils.js')
-
 const bigCartesian = require('big-cartesian')
 
 // Iterate over combinations
