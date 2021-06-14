@@ -1,7 +1,7 @@
 import test from 'ava'
+// eslint-disable-next-line import/no-unresolved, node/no-missing-import
+import bigCartesian from 'big-cartesian'
 import prettyFormat from 'pretty-format'
-
-import bigCartesian from '../src/main.js'
 
 const getTitle = function (args) {
   return prettyFormat(args, { min: true })
