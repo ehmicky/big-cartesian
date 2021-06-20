@@ -65,7 +65,7 @@ This works with an infinite number of combinations.
 Arrays in JavaScript have a size limit of 4 trillions of elements. You can
 bypass this limit by using iterables or generator functions instead.
 
-<!-- eslint-disable fp/no-loops, no-empty -->
+<!-- eslint-disable fp/no-loops -->
 
 ```js
 import bigCartesian from 'big-cartesian'
