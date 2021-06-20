@@ -49,6 +49,10 @@ You can try this library:
 npm install big-cartesian
 ```
 
+Since this package uses ES modules,
+[an `import` or `import()` statement must be used`](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c),
+not `require()`.
+
 # API
 
 ## bigCartesian(inputs)
