@@ -51,7 +51,7 @@
     "test": "test"
   },
   "devDependencies": {
-    "@ehmicky/dev-tasks": "^1.0.17",
+    "@ehmicky/dev-tasks": "^1.0.18",
     "pretty-format": "^26.6.2"
   },
   "engines": {
