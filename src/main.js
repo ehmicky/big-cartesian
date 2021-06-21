@@ -6,7 +6,6 @@
 //  - can handle infinitely large inputs (`inputs[index].length`)
 //  - can handle 4e9 dimensions (`inputs.length`).
 //    This is the maximum size of an array in JavaScript.
-// eslint-disable-next-line import/no-default-export
 export default function* bigCartesian(iterables) {
   if (!Array.isArray(iterables)) {
     return throwValidation()
