@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^1.0.86",
-    "pretty-format": "^28.1.1"
+    "pretty-format": "^29.0.1"
   },
   "engines": {
     "node": ">=14.18.0"
