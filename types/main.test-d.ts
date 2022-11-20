@@ -1,4 +1,4 @@
-import { expectType, expectError } from 'tsd'
+import { expectType, expectNever, expectError } from 'tsd'
 
 import bigCartesian from 'big-cartesian'
 
@@ -15,7 +15,7 @@ for (const [] of bigCartesian([])) {
 expectType<Generator<[], void, void>>(bigCartesian([]))
 
 for (const [a] of bigCartesian([[]])) {
-  expectType<never>(a)
+  expectNever(a)
 }
 expectType<Generator<[never], void, void>>(bigCartesian([[]]))
 
