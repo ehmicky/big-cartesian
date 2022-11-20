@@ -62,7 +62,6 @@ const INVALID_ARGS = [
 ]
 INVALID_ARGS.forEach((args) => {
   test(`should throw | ${getTitle(args)}`, (t) => {
-    // eslint-disable-next-line max-nested-callbacks
     t.throws(() => [...bigCartesian(args)])
   })
 })
