@@ -1,4 +1,4 @@
-type InputArray = any[] | Iterable<any> | (() => Generator<any>)
+type InputArray = unknown[] | Iterable<unknown> | (() => Generator<unknown>)
 
 type CartesianProducts<InputArrays extends InputArray[]> = Generator<
   {
@@ -8,7 +8,7 @@ type CartesianProducts<InputArrays extends InputArray[]> = Generator<
       ? InputElement
       : InputArrays[index] extends () => Generator<infer InputElement>
       ? InputElement
-      : any
+      : never
   },
   void,
   void
