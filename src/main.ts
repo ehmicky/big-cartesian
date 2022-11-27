@@ -1,12 +1,40 @@
-// Does a cartesian product on several arrays.
-// Returns an iterable.
-// Slower than `fast-cartesian` and other libraries but:
-//  - requires much less memory
-//  - can handle an infinite number of combinations (`returnValue.length`)
-//  - can handle infinitely large inputs (`inputs[index].length`)
-//  - can handle 4e9 dimensions (`inputs.length`).
-//    This is the maximum size of an array in JavaScript.
-export default function* bigCartesian(iterables) {
+// @ts-nocheck
+type InputArray = unknown[] | Iterable<unknown> | (() => Generator<unknown>)
+
+type CartesianProducts<InputArrays extends InputArray[]> = Generator<
+  {
+    [index in keyof InputArrays]: InputArrays[index] extends (infer InputElement)[]
+      ? InputElement
+      : InputArrays[index] extends Iterable<infer InputElement>
+      ? InputElement
+      : InputArrays[index] extends () => Generator<infer InputElement>
+      ? InputElement
+      : never
+  },
+  void,
+  void
+>
+
+/**
+ * Iterates over each cartesian product combination of `inputs`.
+ *
+ * @example
+ * ```js
+ * for (const values of bigCartesian([
+ *   ['red', 'blue'],
+ *   ['circle', 'square'],
+ * ])) {
+ *   console.log(values)
+ * }
+ * // [ 'red', 'circle' ]
+ * // [ 'red', 'square' ]
+ * // [ 'blue', 'circle' ]
+ * // [ 'blue', 'square' ]
+ * ```
+ */
+export default function* bigCartesian<InputArrays extends InputArray[]>(
+  iterables: [...InputArrays],
+): CartesianProducts<InputArrays> {
   if (!Array.isArray(iterables)) {
     return throwValidation()
   }
@@ -32,6 +60,12 @@ const getIteratorFuncs = function (input) {
   return input
 }
 
+// Slower than `fast-cartesian` and other libraries but:
+//  - requires much less memory
+//  - can handle an infinite number of combinations (`returnValue.length`)
+//  - can handle infinitely large inputs (`inputs[index].length`)
+//  - can handle 4e9 dimensions (`inputs.length`).
+//    This is the maximum size of an array in JavaScript.
 const getResults = function* (iteratorFuncs) {
   const iterators = iteratorFuncs.map(getIterator)
   const results = iterators.map(getInitialValue)
