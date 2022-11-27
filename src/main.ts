@@ -47,8 +47,10 @@ type CartesianProducts<InputArrays extends InputArray[]> = Generator<
 
 type InputArray = unknown[] | Iterable<unknown> | (() => Generator<unknown>)
 
-const getIteratorFuncs = function (input: InputArray): GetIteratorFunc {
-  const iterator = (input as { [Symbol.iterator]: unknown })[Symbol.iterator]
+const getIteratorFuncs = function (input: InputArray) {
+  const iterator = (input as { [Symbol.iterator]: unknown })[
+    Symbol.iterator
+  ] as GetIteratorFunc
 
   if (typeof iterator === 'function') {
     return iterator.bind(input)
@@ -62,7 +64,9 @@ const getIteratorFuncs = function (input: InputArray): GetIteratorFunc {
 }
 
 type GetIteratorFunc = () => UnknownIterator
-type UnknownIterator = Iterator<unknown>
+type UnknownIterator = Iterator<unknown, undefined>
+type UnknownIteratorResult = IteratorResult<unknown, undefined>
+type UnknownIteratorYieldResult = IteratorYieldResult<unknown>
 
 // Slower than `fast-cartesian` and other libraries but:
 //  - requires much less memory
@@ -80,7 +84,7 @@ const getResults = function* (
     return
   }
 
-  const result = results.map(getValue)
+  const result = (results as IteratorYieldResult<unknown>[]).map(getValue)
 
   // eslint-disable-next-line fp/no-loops
   do {
@@ -88,7 +92,7 @@ const getResults = function* (
   } while (!getResult(iteratorFuncs, iterators, result))
 }
 
-const getIterator = function (iteratorFunc: GetIteratorFunc): UnknownIterator {
+const getIterator = function (iteratorFunc: GetIteratorFunc) {
   const iterator = iteratorFunc()
 
   if (!isIterator(iterator)) {
@@ -98,11 +102,11 @@ const getIterator = function (iteratorFunc: GetIteratorFunc): UnknownIterator {
   return iterator
 }
 
-const throwValidation = function (): never {
+const throwValidation = function () {
   throw new TypeError('Argument must be an array of arrays or generators')
 }
 
-const isIterator = function (value: UnknownIterator): boolean {
+const isIterator = function (value: UnknownIterator) {
   return (
     typeof value === 'object' &&
     value !== null &&
@@ -110,23 +114,19 @@ const isIterator = function (value: UnknownIterator): boolean {
   )
 }
 
-const getInitialValue = function (
-  iterator: UnknownIterator,
-): IteratorResult<unknown> {
+const getInitialValue = function (iterator: UnknownIterator) {
   return iterator.next()
 }
 
-const hasEmptyIterators = function (
-  results: IteratorResult<unknown>[],
-): boolean {
+const hasEmptyIterators = function (results: UnknownIteratorResult[]) {
   return results.some(isEmptyIterator)
 }
 
-const isEmptyIterator = function ({ done }: IteratorResult<unknown>): boolean {
+const isEmptyIterator = function ({ done }: UnknownIteratorResult) {
   return done!
 }
 
-const getValue = function ({ value }: IteratorResult<unknown>): unknown {
+const getValue = function ({ value }: UnknownIteratorYieldResult) {
   return value
 }
 
@@ -138,7 +138,7 @@ const getResult = function (
   iteratorFuncs: GetIteratorFunc[],
   iterators: UnknownIterator[],
   result: unknown[],
-): boolean {
+) {
   let reset = false
   let index = iterators.length - 1
 
