@@ -1,8 +1,9 @@
 import test from 'ava'
-import bigCartesian from 'big-cartesian'
 import { format } from 'pretty-format'
 
-const getTitle = function (args) {
+import bigCartesian from './main.js'
+
+const getTitle = function (args: unknown) {
   return format(args, { min: true })
 }
 
@@ -34,7 +35,7 @@ const ARGS = [
 ]
 ARGS.forEach((args) => {
   test(`iterate | ${getTitle(args)}`, (t) => {
-    t.snapshot(bigCartesian(args))
+    t.snapshot(bigCartesian(args as unknown[][]))
   })
 })
 
@@ -62,7 +63,7 @@ const INVALID_ARGS = [
 ]
 INVALID_ARGS.forEach((args) => {
   test(`should throw | ${getTitle(args)}`, (t) => {
-    t.throws(() => [...bigCartesian(args)])
+    t.throws(() => [...bigCartesian(args as never)])
   })
 })
 
@@ -83,7 +84,7 @@ COMBINATIONS_ITERATE.forEach(({ length, size }) => {
   })
 })
 
-const getBigArray = function (length, size) {
+const getBigArray = function (length: number, size: number) {
   return Array.from({ length }, () => Array.from({ length: size }, getTrue))
 }
 
