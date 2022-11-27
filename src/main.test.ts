@@ -35,7 +35,9 @@ const ARGS = [
 ]
 ARGS.forEach((args) => {
   test(`iterate | ${getTitle(args)}`, (t) => {
-    t.snapshot(bigCartesian(args as unknown[][]))
+    const iterator = bigCartesian(args as unknown[][])
+    t.false(Array.isArray(iterator))
+    t.snapshot([...iterator])
   })
 })
 
