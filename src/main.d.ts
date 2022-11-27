@@ -1,3 +1,19 @@
+type InputArray = any[] | Iterable<any> | (() => Generator<any>)
+
+type CartesianProducts<InputArrays extends InputArray[]> = Generator<
+  {
+    [index in keyof InputArrays]: InputArrays[index] extends (infer InputElement)[]
+      ? InputElement
+      : InputArrays[index] extends Iterable<infer InputElement>
+      ? InputElement
+      : InputArrays[index] extends () => Generator<infer InputElement>
+      ? InputElement
+      : any
+  },
+  void,
+  void
+>
+
 /**
  * Iterates over each cartesian product combination of `inputs`.
  *
@@ -15,22 +31,6 @@
  * // [ 'blue', 'square' ]
  * ```
  */
-export default function bigCartesian<
-  InputArrays extends Array<any[] | Iterable<any> | (() => Generator<any>)>,
->(
+export default function bigCartesian<InputArrays extends InputArray[]>(
   factors: [...InputArrays],
-): Generator<
-  {
-    [index in keyof InputArrays]: InputArrays[index] extends Array<
-      infer InputElement
-    >
-      ? InputElement
-      : InputArrays[index] extends Iterable<infer InputElement>
-      ? InputElement
-      : InputArrays[index] extends () => Generator<infer InputElement>
-      ? InputElement
-      : any
-  },
-  void,
-  void
->
+): CartesianProducts<InputArrays>
