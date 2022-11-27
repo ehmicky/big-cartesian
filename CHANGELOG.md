@@ -1,3 +1,9 @@
+# 4.5.0
+
+## Internal
+
+- Rewrite codebase in TypeScript
+
 # 4.4.0
 
 ## Features
