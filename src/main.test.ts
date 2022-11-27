@@ -1,7 +1,7 @@
 import test from 'ava'
 import { format } from 'pretty-format'
 
-import bigCartesian from './main.js'
+import bigCartesian from 'big-cartesian'
 
 const getTitle = function (args: unknown) {
   return format(args, { min: true })

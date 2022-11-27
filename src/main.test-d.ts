@@ -1,6 +1,6 @@
 import { expectType, expectNever, expectError } from 'tsd'
 
-import bigCartesian from './main.js'
+import bigCartesian from 'big-cartesian'
 
 for (const [a, b] of bigCartesian([
   [true, 'a'],

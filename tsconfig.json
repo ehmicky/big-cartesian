@@ -1,4 +1,3 @@
 {
-  "extends": "@ehmicky/dev-tasks",
-  "files": ["src/main.ts"]
+  "extends": "@ehmicky/dev-tasks"
 }
