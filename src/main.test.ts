@@ -8,36 +8,76 @@ const getTitle = function (args: unknown) {
 }
 
 const ARGS = [
-  [],
-  [[]],
-  [[], []],
-  [[0]],
-  [[0], [1]],
-  [[0, 1]],
-  [[0, 1], [2]],
-  [
-    [0, 1],
-    [2, 3],
-  ],
-  [
-    [0, 1, 2],
-    [3, 2],
-  ],
-  [[[0]]],
-  [[0, undefined, 1]],
-  [
-    [0, 1],
-    function* generator() {
-      yield* [2, 3]
-    },
-  ],
-  [[0, 1], new Set([2, 3])],
+  { input: [], output: [] },
+  { input: [[]], output: [] },
+  { input: [[], []], output: [] },
+  { input: [[0]], output: [[0]] },
+  { input: [[0], [1]], output: [[0, 1]] },
+  { input: [[0, 1]], output: [[0], [1]] },
+  {
+    input: [[0, 1], [2]],
+    output: [
+      [0, 2],
+      [1, 2],
+    ],
+  },
+  {
+    input: [
+      [0, 1],
+      [2, 3],
+    ],
+    output: [
+      [0, 2],
+      [0, 3],
+      [1, 2],
+      [1, 3],
+    ],
+  },
+  {
+    input: [
+      [0, 1, 2],
+      [3, 2],
+    ],
+    output: [
+      [0, 3],
+      [0, 2],
+      [1, 3],
+      [1, 2],
+      [2, 3],
+      [2, 2],
+    ],
+  },
+  { input: [[[0]]], output: [[[0]]] },
+  { input: [[0, undefined, 1]], output: [[0], [undefined], [1]] },
+  {
+    input: [
+      [0, 1],
+      function* generator() {
+        yield* [2, 3]
+      },
+    ],
+    output: [
+      [0, 2],
+      [0, 3],
+      [1, 2],
+      [1, 3],
+    ],
+  },
+  {
+    input: [[0, 1], new Set([2, 3])],
+    output: [
+      [0, 2],
+      [0, 3],
+      [1, 2],
+      [1, 3],
+    ],
+  },
 ]
-ARGS.forEach((args) => {
-  test(`iterate | ${getTitle(args)}`, (t) => {
-    const iterator = bigCartesian(args as unknown[][])
+ARGS.forEach(({ input, output }) => {
+  test(`iterate | ${getTitle(input)}`, (t) => {
+    const iterator = bigCartesian(input as unknown[][])
     t.false(Array.isArray(iterator))
-    t.snapshot([...iterator])
+    t.deepEqual([...iterator], output)
   })
 })
 
