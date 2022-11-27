@@ -45,7 +45,7 @@ type CartesianProducts<InputArrays extends InputArray[]> = Generator<
   void
 >
 
-type InputArray = unknown[] | Iterable<unknown> | GeneratorFunction
+type InputArray = unknown[] | Iterable<unknown> | (() => Generator<unknown>)
 
 const getIteratorFuncs = function (input: InputArray): GetIteratorFunc {
   const iterator = (input as { [Symbol.iterator]: unknown })[Symbol.iterator]
