@@ -16,7 +16,7 @@
  * ```
  */
 export default function* bigCartesian<InputArrays extends InputArray[]>(
-  iterables: [...InputArrays],
+  iterables: readonly [...InputArrays],
 ): CartesianProducts<InputArrays> {
   if (!Array.isArray(iterables)) {
     return throwValidation()
@@ -45,7 +45,7 @@ type CartesianProducts<InputArrays extends InputArray[]> = Generator<
   void
 >
 
-type InputArray = unknown[] | Iterable<unknown> | (() => Generator<unknown>)
+type InputArray = unknown[] | Iterable<unknown> | (() => Generator)
 
 const getIteratorFuncs = function (input: InputArray) {
   const iterator = (input as { [Symbol.iterator]: unknown })[
@@ -78,7 +78,8 @@ type UnknownIteratorYieldResult = IteratorYieldResult<unknown>
 //  - can handle 4e9 dimensions (`inputs.length`).
 //    This is the maximum size of an array in JavaScript.
 const getResults = function* (
-  iteratorFuncs: GetIteratorFunc[],
+  iteratorFuncs: readonly GetIteratorFunc[],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Generator<any> {
   const iterators = iteratorFuncs.map(getIterator)
   const results = iterators.map(getInitialValue)
@@ -112,6 +113,7 @@ const throwValidation = function () {
 const isIterator = function (value: UnknownIterator) {
   return (
     typeof value === 'object' &&
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     value !== null &&
     typeof value.next === 'function'
   )
@@ -138,7 +140,7 @@ const getValue = function ({ value }: UnknownIteratorYieldResult) {
 /* eslint-disable fp/no-let, fp/no-mutation, no-param-reassign, max-depth,
 no-plusplus, fp/no-loops, max-statements, complexity */
 const getResult = function (
-  iteratorFuncs: GetIteratorFunc[],
+  iteratorFuncs: readonly GetIteratorFunc[],
   iterators: UnknownIterator[],
   result: unknown[],
 ) {
@@ -159,7 +161,7 @@ const getResult = function (
       if (index === -1) {
         return true
       }
-    } else if (done) {
+    } else if (done === true) {
       reset = true
       iterators[index] = iteratorFuncs[index]!()
     } else {
