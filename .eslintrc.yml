@@ -1,1 +1,6 @@
 extends: '@ehmicky/eslint-config/.eslintrc.yml'
+overrides:
+  - files: ['**/*.test.ts']
+    rules:
+      # Fix Ava linting with TypeScript files
+      ava/no-ignored-test-files: 0

@@ -1,21 +1,23 @@
+/* eslint-disable fp/no-loops */
 import bigCartesian from 'big-cartesian'
 import { expectType, expectNever } from 'tsd'
 
-for (const [a, b] of bigCartesian([
+for (const [one, two] of bigCartesian([
   [true, 'a'],
   [1, 2],
 ])) {
-  expectType<string | boolean>(a)
-  expectType<number>(b)
+  expectType<string | boolean>(one)
+  expectType<number>(two)
 }
 
+// eslint-disable-next-line no-empty-pattern, no-empty
 for (const [] of bigCartesian([])) {
 }
 
 expectType<Generator<[], void, void>>(bigCartesian([]))
 
-for (const [a] of bigCartesian([[]])) {
-  expectNever(a)
+for (const [one] of bigCartesian([[]])) {
+  expectNever(one)
 }
 
 expectType<Generator<[never], void, void>>(bigCartesian([[]]))
@@ -29,9 +31,9 @@ bigCartesian([[true, 'a'], 1])
 // @ts-expect-error
 bigCartesian([true, 'a'], [1, 2])
 
-for (const [a, b] of bigCartesian([[true], 'abcde'])) {
-  expectType<boolean>(a)
-  expectType<string>(b)
+for (const [one, two] of bigCartesian([[true], 'abcde'])) {
+  expectType<boolean>(one)
+  expectType<string>(two)
 }
 
 expectType<Generator<[boolean, string], void, void>>(
@@ -42,11 +44,12 @@ const generator = function* () {
   yield 'a'
 }
 
-for (const [a, b] of bigCartesian([[true], generator])) {
-  expectType<boolean>(a)
-  expectType<string>(b)
+for (const [one, two] of bigCartesian([[true], generator])) {
+  expectType<boolean>(one)
+  expectType<string>(two)
 }
 
 expectType<Generator<[boolean, string], void, void>>(
   bigCartesian([[true], generator]),
 )
+/* eslint-enable fp/no-loops */
