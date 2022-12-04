@@ -1,7 +1,6 @@
 import test from 'ava'
-import { each } from 'test-each'
-
 import bigCartesian from 'big-cartesian'
+import { each } from 'test-each'
 
 each(
   [

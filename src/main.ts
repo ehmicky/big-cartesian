@@ -64,8 +64,11 @@ const getIteratorFuncs = function (input: InputArray) {
 }
 
 type GetIteratorFunc = () => UnknownIterator
+
 type UnknownIterator = Iterator<unknown, undefined>
+
 type UnknownIteratorResult = IteratorResult<unknown, undefined>
+
 type UnknownIteratorYieldResult = IteratorYieldResult<unknown>
 
 // Slower than `fast-cartesian` and other libraries but:

@@ -1,6 +1,5 @@
-import { expectType, expectNever } from 'tsd'
-
 import bigCartesian from 'big-cartesian'
+import { expectType, expectNever } from 'tsd'
 
 for (const [a, b] of bigCartesian([
   [true, 'a'],
@@ -12,11 +11,13 @@ for (const [a, b] of bigCartesian([
 
 for (const [] of bigCartesian([])) {
 }
+
 expectType<Generator<[], void, void>>(bigCartesian([]))
 
 for (const [a] of bigCartesian([[]])) {
   expectNever(a)
 }
+
 expectType<Generator<[never], void, void>>(bigCartesian([[]]))
 
 // @ts-expect-error
@@ -32,6 +33,7 @@ for (const [a, b] of bigCartesian([[true], 'abcde'])) {
   expectType<boolean>(a)
   expectType<string>(b)
 }
+
 expectType<Generator<[boolean, string], void, void>>(
   bigCartesian([[true], 'abcde']),
 )
@@ -39,10 +41,12 @@ expectType<Generator<[boolean, string], void, void>>(
 const generator = function* () {
   yield 'a'
 }
+
 for (const [a, b] of bigCartesian([[true], generator])) {
   expectType<boolean>(a)
   expectType<string>(b)
 }
+
 expectType<Generator<[boolean, string], void, void>>(
   bigCartesian([[true], generator]),
 )
