@@ -2,6 +2,10 @@ import test from 'ava'
 import bigCartesian from 'big-cartesian'
 import { each } from 'test-each'
 
+const generator = function* () {
+  yield* [-1, -2]
+}
+
 each(
   [
     { input: [], output: [] },
@@ -46,12 +50,7 @@ each(
     { input: [[[0]]], output: [[[0]]] },
     { input: [[0, undefined, 1]], output: [[0], [undefined], [1]] },
     {
-      input: [
-        [0, 1],
-        function* generator() {
-          yield* [-1, -2]
-        },
-      ],
+      input: [[0, 1], generator],
       output: [
         [0, -1],
         [0, -2],
@@ -69,7 +68,7 @@ each(
   ],
   ({ title }, { input, output }) => {
     test(`Success | ${title}`, (t) => {
-      const iterator = bigCartesian(input)
+      const iterator = bigCartesian(input as unknown[][])
       t.false(Array.isArray(iterator))
       t.deepEqual([...iterator], output)
     })
@@ -83,25 +82,13 @@ each(
     [null],
     [[], true],
     [() => true],
-    [
-      function getObject() {
-        return {}
-      },
-    ],
-    [
-      function getNull() {
-        return null
-      },
-    ],
-    [
-      function getInvalidIterator() {
-        return { next: true }
-      },
-    ],
+    [() => ({})],
+    [() => null],
+    [() => ({ next: true })],
   ],
   ({ title }, input) => {
     test(`Invalid input | ${title}`, (t) => {
-      t.throws(() => [...bigCartesian(input)])
+      t.throws(() => [...bigCartesian(input as unknown as unknown[][])])
     })
   },
 )
