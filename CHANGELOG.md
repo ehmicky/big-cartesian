@@ -1,3 +1,9 @@
+# 4.6.0
+
+## Features
+
+- Improve TypeScript types
+
 # 4.5.0
 
 ## Internal
