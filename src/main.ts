@@ -15,9 +15,9 @@
  * // [ 'blue', 'square' ]
  * ```
  */
-export default function* bigCartesian<InputArrays extends InputArray[]>(
-  iterables: readonly [...InputArrays],
-): CartesianProducts<InputArrays> {
+export default function* bigCartesian<
+  InputArrays extends readonly InputArray[],
+>(iterables: readonly [...InputArrays]): CartesianProducts<InputArrays> {
   if (!Array.isArray(iterables)) {
     return throwValidation()
   }
@@ -31,7 +31,7 @@ export default function* bigCartesian<InputArrays extends InputArray[]>(
   yield* getResults(iteratorFuncs)
 }
 
-type CartesianProducts<InputArrays extends InputArray[]> = Generator<
+type CartesianProducts<InputArrays extends readonly InputArray[]> = Generator<
   {
     [index in keyof InputArrays]: InputArrays[index] extends (infer InputElement)[]
       ? InputElement
@@ -45,7 +45,7 @@ type CartesianProducts<InputArrays extends InputArray[]> = Generator<
   void
 >
 
-type InputArray = unknown[] | Iterable<unknown> | (() => Generator)
+type InputArray = readonly unknown[] | Iterable<unknown> | (() => Generator)
 
 const getIteratorFuncs = (input: InputArray) => {
   const iterator = (input as { [Symbol.iterator]: unknown })[
