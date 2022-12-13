@@ -47,7 +47,7 @@ type CartesianProducts<InputArrays extends InputArray[]> = Generator<
 
 type InputArray = unknown[] | Iterable<unknown> | (() => Generator)
 
-const getIteratorFuncs = function (input: InputArray) {
+const getIteratorFuncs = (input: InputArray) => {
   const iterator = (input as { [Symbol.iterator]: unknown })[
     Symbol.iterator
   ] as GetIteratorFunc
@@ -96,7 +96,7 @@ const getResults = function* (
   } while (!getResult(iteratorFuncs, iterators, result))
 }
 
-const getIterator = function (iteratorFunc: GetIteratorFunc) {
+const getIterator = (iteratorFunc: GetIteratorFunc) => {
   const iterator = iteratorFunc()
 
   if (!isIterator(iterator)) {
@@ -106,44 +106,34 @@ const getIterator = function (iteratorFunc: GetIteratorFunc) {
   return iterator
 }
 
-const throwValidation = function () {
+const throwValidation = () => {
   throw new TypeError('Argument must be an array of arrays or generators')
 }
 
-const isIterator = function (value: UnknownIterator) {
-  return (
-    typeof value === 'object' &&
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    value !== null &&
-    typeof value.next === 'function'
-  )
-}
+const isIterator = (value: UnknownIterator) =>
+  typeof value === 'object' &&
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  value !== null &&
+  typeof value.next === 'function'
 
-const getInitialValue = function (iterator: UnknownIterator) {
-  return iterator.next()
-}
+const getInitialValue = (iterator: UnknownIterator) => iterator.next()
 
-const hasEmptyIterators = function (results: UnknownIteratorResult[]) {
-  return results.some(isEmptyIterator)
-}
+const hasEmptyIterators = (results: UnknownIteratorResult[]) =>
+  results.some(isEmptyIterator)
 
-const isEmptyIterator = function ({ done }: UnknownIteratorResult) {
-  return done!
-}
+const isEmptyIterator = ({ done }: UnknownIteratorResult) => done!
 
-const getValue = function ({ value }: UnknownIteratorYieldResult) {
-  return value
-}
+const getValue = ({ value }: UnknownIteratorYieldResult) => value
 
 // We use imperative code for performance purpose, which is why those ESLint
 // rules are disabled.
 /* eslint-disable fp/no-let, fp/no-mutation, no-param-reassign, max-depth,
 no-plusplus, fp/no-loops, max-statements, complexity */
-const getResult = function (
+const getResult = (
   iteratorFuncs: readonly GetIteratorFunc[],
   iterators: UnknownIterator[],
   result: unknown[],
-) {
+) => {
   let reset = false
   let index = iterators.length - 1
 

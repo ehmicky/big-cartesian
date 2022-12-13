@@ -112,10 +112,7 @@ each(
   },
 )
 
-const getBigArray = function (length: number, size: number) {
-  return Array.from({ length }, () => Array.from({ length: size }, getTrue))
-}
+const getBigArray = (length: number, size: number) =>
+  Array.from({ length }, () => Array.from({ length: size }, getTrue))
 
-const getTrue = function () {
-  return true
-}
+const getTrue = () => true
