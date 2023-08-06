@@ -42,7 +42,10 @@
   ],
   "license": "Apache-2.0",
   "homepage": "https://www.github.com/ehmicky/big-cartesian",
-  "repository": "ehmicky/big-cartesian",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehmicky/big-cartesian.git"
+  },
   "bugs": {
     "url": "https://github.com/ehmicky/big-cartesian/issues"
   },
