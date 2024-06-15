@@ -36,10 +36,10 @@ type CartesianProducts<InputArrays extends readonly InputArray[]> = Generator<
     [index in keyof InputArrays]: InputArrays[index] extends (infer InputElement)[]
       ? InputElement
       : InputArrays[index] extends Iterable<infer InputElement>
-      ? InputElement
-      : InputArrays[index] extends () => Generator<infer InputElement>
-      ? InputElement
-      : never
+        ? InputElement
+        : InputArrays[index] extends () => Generator<infer InputElement>
+          ? InputElement
+          : never
   },
   void,
   void

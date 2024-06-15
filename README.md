@@ -74,7 +74,8 @@ not CommonJS.
 ## bigCartesian(inputs)
 
 `inputs`: `Array<Array | Iterable | GeneratorFunction>`\
-_Return value_: [`Iterable<Array>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
+_Return value_:
+[`Iterable<Array>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
 
 Iterates over each combination of `inputs`.
 
