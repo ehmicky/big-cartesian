@@ -47,13 +47,6 @@ for (const values of bigCartesian([
 // [ 'blue', 'square' ]
 ```
 
-# Demo
-
-You can try this library:
-
-- either directly [in your browser](https://repl.it/@ehmicky/big-cartesian).
-- or by executing the [`examples` files](examples/README.md) in a terminal.
-
 # Install
 
 ```

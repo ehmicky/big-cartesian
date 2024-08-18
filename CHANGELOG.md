@@ -1,3 +1,9 @@
+# 6.1.0
+
+## Features
+
+- Decrease package size by removing examples.
+
 # 6.0.0
 
 ## Breaking changes
