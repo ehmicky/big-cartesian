@@ -128,7 +128,7 @@ const getValue = ({ value }: UnknownIteratorYieldResult) => value
 // We use imperative code for performance purpose, which is why those ESLint
 // rules are disabled.
 /* eslint-disable fp/no-let, fp/no-mutation, no-param-reassign, max-depth,
-no-plusplus, fp/no-loops, max-statements */
+no-plusplus, fp/no-loops, max-statements, no-constant-condition */
 const getResult = (
   iteratorFuncs: readonly GetIteratorFunc[],
   iterators: UnknownIterator[],
@@ -162,4 +162,4 @@ const getResult = (
   return false
 }
 /* eslint-enable fp/no-let, fp/no-mutation, no-param-reassign, max-depth,
-no-plusplus, fp/no-loops, max-statements */
+no-plusplus, fp/no-loops, max-statements, no-constant-condition */
