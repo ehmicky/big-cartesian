@@ -1,5 +1,5 @@
 import bigCartesian from 'big-cartesian'
-import { expectType, expectNever } from 'tsd'
+import { expectNever, expectType } from 'tsd'
 
 const emptyArray = [] as const
 const oneEmptyArray = [emptyArray] as const
