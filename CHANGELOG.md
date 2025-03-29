@@ -1,3 +1,9 @@
+# 6.1.1
+
+## Documentation
+
+- Update `README.md`
+
 # 6.1.0
 
 ## Features
